@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface ClienteService {
 
     Cliente save(ClienteDTO clienteDTO);
-    Cliente update(Cliente cliente);
+    Cliente update(ClienteDTO clienteDTO);
     Cliente findByCpf(String cpf);
 
 }

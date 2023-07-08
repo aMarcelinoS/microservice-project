@@ -25,8 +25,8 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public Cliente update(Cliente cliente) {
-        return null;
+    public Cliente update(ClienteDTO obj) {
+        return repository.save(mapper.map(obj, Cliente.class));
     }
 
     @Override
