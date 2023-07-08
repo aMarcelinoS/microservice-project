@@ -1,22 +1,23 @@
 package com.github.alemarcelinos.msclientes.application;
 
-import com.github.alemarcelinos.msclientes.application.dto.ClienteSaveRequest;
+import com.github.alemarcelinos.msclientes.application.dto.ClienteDTO;
 import com.github.alemarcelinos.msclientes.application.impl.ClienteServiceImpl;
 import com.github.alemarcelinos.msclientes.domain.Cliente;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "clientes")
 @RequiredArgsConstructor
 public class ClienteController {
 
-    private final ClienteServiceImpl clienteService;
+    private final ClienteServiceImpl service;
+    private final ModelMapper modelMapper;
 
     @GetMapping
     public String status(){
@@ -24,9 +25,9 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity saveClient(@RequestBody ClienteSaveRequest request){
+    public ResponseEntity saveClient(@RequestBody ClienteDTO request){
        Cliente clienteDto = request.toModel();
-       clienteService.save(clienteDto);
+       service.save(clienteDto);
         URI headerLocation = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .query("cpf={cpf}")
@@ -36,8 +37,8 @@ public class ClienteController {
     }
 
     @GetMapping(params = "cpf")
-    public ResponseEntity findByCpf(@RequestParam("cpf") String cpf){
-        Cliente cliente = clienteService.findByCpf(cpf);
-        return ResponseEntity.ok(cliente);
+    public ResponseEntity<ClienteDTO> findByCpf(@RequestParam("cpf") String cpf){
+        return ResponseEntity.ok().body(modelMapper.map(service.findByCpf(cpf), ClienteDTO.class));
     }
+
 }

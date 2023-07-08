@@ -2,9 +2,11 @@ package com.github.alemarcelinos.msclientes.application.dto;
 
 import com.github.alemarcelinos.msclientes.domain.Cliente;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class ClienteSaveRequest {
+@NoArgsConstructor
+public class ClienteDTO {
 
     private String cpf;
     private String nome;
