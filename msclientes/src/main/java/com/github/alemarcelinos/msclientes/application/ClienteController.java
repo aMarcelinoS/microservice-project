@@ -25,13 +25,11 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity saveClient(@RequestBody ClienteDTO request){
-       Cliente clienteDto = request.toModel();
-       service.save(clienteDto);
+    public ResponseEntity<ClienteDTO> saveClient(@RequestBody ClienteDTO obj){
         URI headerLocation = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .query("cpf={cpf}")
-                .buildAndExpand(clienteDto.getCpf())
+                .buildAndExpand(service.save(obj))
                 .toUri();
         return ResponseEntity.created(headerLocation).build();
     }

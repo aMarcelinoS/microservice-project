@@ -1,12 +1,13 @@
 package com.github.alemarcelinos.msclientes.application;
 
+import com.github.alemarcelinos.msclientes.application.dto.ClienteDTO;
 import com.github.alemarcelinos.msclientes.domain.Cliente;
 
 import java.util.Optional;
 
 public interface ClienteService {
 
-    Cliente save(Cliente cliente);
+    Cliente save(ClienteDTO clienteDTO);
     Cliente update(Cliente cliente);
     Cliente findByCpf(String cpf);
 
