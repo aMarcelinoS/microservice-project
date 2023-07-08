@@ -9,6 +9,4 @@ public interface ClienteService {
 
     Cliente save(ClienteDTO clienteDTO);
     Cliente update(ClienteDTO clienteDTO);
-    Cliente findByCpf(String cpf);
-
 }

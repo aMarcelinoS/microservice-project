@@ -40,7 +40,6 @@ public class ClienteController {
 
     @PutMapping(value = "/{cpf}")
     public ResponseEntity<ClienteDTO> updateCliente(@PathVariable String cpf, @RequestBody ClienteDTO obj){
-        service.findByCpf(cpf);
         return ResponseEntity.ok().body(mapper.map(service.update(obj), ClienteDTO.class));
     }
 }

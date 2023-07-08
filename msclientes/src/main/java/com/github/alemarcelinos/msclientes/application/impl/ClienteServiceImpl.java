@@ -26,12 +26,12 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente update(ClienteDTO obj) {
+        findByCpf(obj.getCpf());
         return repository.save(mapper.map(obj, Cliente.class));
     }
 
-    @Override
-    public Cliente findByCpf(String cpf) {
-        Optional<Cliente> obj = repository.findByCpf(cpf);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado!"));
+    public Optional<ClienteDTO> findByCpf(String cpf) {
+        Optional<ClienteDTO> obj = repository.findByCpf(cpf);
+        return Optional.ofNullable(obj.orElseThrow(() -> new ObjectNotFoundException("Cliente não encontrado!")));
     }
 }
