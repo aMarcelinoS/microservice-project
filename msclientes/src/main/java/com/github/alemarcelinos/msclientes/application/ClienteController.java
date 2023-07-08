@@ -1,6 +1,7 @@
 package com.github.alemarcelinos.msclientes.application;
 
 import com.github.alemarcelinos.msclientes.application.dto.ClienteSaveRequest;
+import com.github.alemarcelinos.msclientes.application.impl.ClienteServiceImpl;
 import com.github.alemarcelinos.msclientes.domain.Cliente;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ClienteController {
 
-    private final ClienteService clienteService;
+    private final ClienteServiceImpl clienteService;
 
     @GetMapping
     public String status(){
@@ -36,10 +37,7 @@ public class ClienteController {
 
     @GetMapping(params = "cpf")
     public ResponseEntity findByCpf(@RequestParam("cpf") String cpf){
-        Optional<Cliente> cliente = clienteService.getByCpf(cpf);
-        if(cliente.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
+        Cliente cliente = clienteService.findByCpf(cpf);
         return ResponseEntity.ok(cliente);
     }
 }
