@@ -68,7 +68,7 @@ class ClienteServiceImplTest {
 
         try {
             service.findById(ID);
-        } catch (Exception ex){
+        } catch (Exception ex) {
             assertEquals(ObjectNotFoundException.class, ex.getClass());
             assertEquals("Cliente id " + ID + " não encontrado!", ex.getMessage());
         }

@@ -29,7 +29,7 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public Cliente save(ClienteDTO clienteDTO) {
-        if(repository.findByCpf(clienteDTO.getCpf()).isPresent()){
+        if (repository.findByCpf(clienteDTO.getCpf()).isPresent()) {
             throw new DataIntegrityViolationException("CPF já está em uso");
         }
         return repository.save(mapper.map(clienteDTO, Cliente.class));
