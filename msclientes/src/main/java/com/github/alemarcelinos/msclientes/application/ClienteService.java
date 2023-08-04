@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface ClienteService {
 
+    Cliente findById(Long id);
     Cliente save(ClienteDTO clienteDTO);
-    Cliente update(ClienteDTO clienteDTO);
 }
