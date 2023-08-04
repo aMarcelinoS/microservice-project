@@ -1,4 +1,4 @@
-package com.github.alemarcelinos.msclientes.application.exceptions;
+package com.github.alemarcelinos.msclientes.application.impl.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException{
 
