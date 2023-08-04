@@ -34,7 +34,7 @@ public class ClienteController {
         URI headerLocation = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .query("cpf={cpf}")
-                .buildAndExpand(mapper.map(service.save(obj), ClienteDTO.class))
+                .buildAndExpand(service.save(obj))
                 .toUri();
         return ResponseEntity.created(headerLocation).build();
     }
