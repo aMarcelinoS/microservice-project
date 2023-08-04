@@ -16,8 +16,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ClienteServiceImpl implements ClienteService {
 
-    private final ModelMapper mapper;
-    private final ClienteRepository repository;
+    private ModelMapper mapper;
+    private ClienteRepository repository;
 
     @Override
     public Cliente findById(Long id) {
