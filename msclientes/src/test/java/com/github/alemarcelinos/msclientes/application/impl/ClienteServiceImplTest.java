@@ -1,6 +1,7 @@
 package com.github.alemarcelinos.msclientes.application.impl;
 
 import com.github.alemarcelinos.msclientes.application.dto.ClienteDTO;
+import com.github.alemarcelinos.msclientes.application.impl.exceptions.ObjectNotFoundException;
 import com.github.alemarcelinos.msclientes.domain.Cliente;
 import com.github.alemarcelinos.msclientes.infra.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
@@ -48,10 +49,10 @@ class ClienteServiceImplTest {
     }
 
     @Test
-    void whenFindByIdThenReturnAnClienteInstance() {
+    void whenFindByIdThenReturnAClienteInstance() {
         when(repository.findById(Mockito.anyLong())).thenReturn(optCliente);
 
-        Cliente response = service.findById(1L);
+        Cliente response = service.findById(ID);
 
         assertNotNull(response);
         assertEquals(Cliente.class, response.getClass());
@@ -59,6 +60,18 @@ class ClienteServiceImplTest {
         assertEquals(CPF, response.getCpf());
         assertEquals(NOME, response.getNome());
         assertEquals(IDADE, response.getIdade());
+    }
+
+    @Test
+    void whenFindByIdThenReturnAnObjectNotFoundException() {
+        when(repository.findById(Mockito.anyLong())).thenThrow(new ObjectNotFoundException("Cliente id " + ID + " não encontrado!"));
+
+        try {
+            service.findById(ID);
+        } catch (Exception ex) {
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertEquals("Cliente id " + ID + " não encontrado!", ex.getMessage());
+        }
     }
 
     @Test
