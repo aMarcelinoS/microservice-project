@@ -2,7 +2,6 @@ package com.github.alemarcelinos.msclientes.application;
 
 import com.github.alemarcelinos.msclientes.application.dto.ClienteDTO;
 import com.github.alemarcelinos.msclientes.application.impl.ClienteServiceImpl;
-import com.github.alemarcelinos.msclientes.infra.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
