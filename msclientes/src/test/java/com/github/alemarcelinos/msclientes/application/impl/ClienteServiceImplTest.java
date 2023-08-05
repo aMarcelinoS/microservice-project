@@ -79,7 +79,29 @@ class ClienteServiceImplTest {
     }
 
     @Test
-    void findByCpf() {
+    void whenFindByCpfWithSuccessThenReturnAClienteInstance() {
+        when(repository.findByCpf(Mockito.anyString())).thenReturn(optCliente);
+
+        Cliente response = service.findByCpf(CPF);
+
+        assertNotNull(response);
+        assertEquals(Cliente.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(CPF, response.getCpf());
+        assertEquals(NOME, response.getNome());
+        assertEquals(IDADE, response.getIdade());
+    }
+
+    @Test
+    void whenFindByCpfNotSuccessThenReturnAnObjectNotFoundException(){
+        when(repository.findByCpf(Mockito.anyString())).thenThrow(new ObjectNotFoundException("CPF não encontrado!"));
+
+        try{
+            service.findByCpf(CPF);
+        } catch (Exception ex) {
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertEquals("CPF não encontrado!", ex.getMessage());
+        }
     }
 
     private void startCliente() {
