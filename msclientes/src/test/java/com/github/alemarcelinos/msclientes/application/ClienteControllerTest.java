@@ -45,11 +45,14 @@ class ClienteControllerTest {
     }
 
     @Test
-    void status() {
+    void whenStatusThenReturnOk() {
+        String response = controller.status();
+
+        assert response.equals("OK");
     }
 
     @Test
-    void whenGetByIdThenReturnSuccess() {
+    void whenGetByIdThenReturnStatusOk() {
         when(service.findById(anyLong())).thenReturn(cliente);
         when(mapper.map(any(), any())).thenReturn(clienteDTO);
 
@@ -65,15 +68,22 @@ class ClienteControllerTest {
         assertEquals(NOME, response.getBody().getNome());
         assertEquals(IDADE, response.getBody().getIdade());
 
-        assertEquals(HttpStatus.OK.is2xxSuccessful(), response.getStatusCode().is2xxSuccessful());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
-    void saveClient() {
+    void whenSaveClientThenReturnCreated() {
+        when(service.save(any())).thenReturn(cliente);
+
+        ResponseEntity<ClienteDTO> response = controller.saveClient(clienteDTO);
+
+        assertNotNull(response.getHeaders().get("Location"));
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
     @Test
-    void findByCpf() {
+    void whenFindByCpfThanReturnStatusOk() {
         when(service.findByCpf(anyString())).thenReturn(cliente);
         when(mapper.map(any(), any())).thenReturn(clienteDTO);
 
@@ -89,7 +99,7 @@ class ClienteControllerTest {
         assertEquals(NOME, response.getBody().getNome());
         assertEquals(IDADE, response.getBody().getIdade());
 
-        assertEquals(HttpStatus.OK.is2xxSuccessful(), response.getStatusCode().is2xxSuccessful());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     private void startUser() {
