@@ -74,6 +74,22 @@ class ClienteControllerTest {
 
     @Test
     void findByCpf() {
+        when(service.findByCpf(anyString())).thenReturn(cliente);
+        when(mapper.map(any(), any())).thenReturn(clienteDTO);
+
+        ResponseEntity<ClienteDTO> response = controller.findByCpf(CPF);
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(ClienteDTO.class, response.getBody().getClass());
+
+        assertEquals(ID, response.getBody().getId());
+        assertEquals(CPF, response.getBody().getCpf());
+        assertEquals(NOME, response.getBody().getNome());
+        assertEquals(IDADE, response.getBody().getIdade());
+
+        assertEquals(HttpStatus.OK.is2xxSuccessful(), response.getStatusCode().is2xxSuccessful());
     }
 
     private void startUser() {
