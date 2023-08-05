@@ -15,8 +15,8 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class ClienteController {
 
-    private final ClienteServiceImpl service;
-    private final ModelMapper mapper;
+    private ClienteServiceImpl service;
+    private ModelMapper mapper;
 
     @GetMapping
     public String status(){
