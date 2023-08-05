@@ -1,6 +1,7 @@
 package com.github.alemarcelinos.msclientes.application.impl;
 
 import com.github.alemarcelinos.msclientes.application.dto.ClienteDTO;
+import com.github.alemarcelinos.msclientes.application.impl.exceptions.DataIntegrityViolationException;
 import com.github.alemarcelinos.msclientes.application.impl.exceptions.ObjectNotFoundException;
 import com.github.alemarcelinos.msclientes.domain.Cliente;
 import com.github.alemarcelinos.msclientes.infra.repository.ClienteRepository;
@@ -75,11 +76,55 @@ class ClienteServiceImplTest {
     }
 
     @Test
-    void save() {
+    void whenSaveClienteThenReturnSuccess() {
+        when(repository.save(Mockito.any())).thenReturn(cliente);
+
+        Cliente response = service.save(clienteDTO);
+
+        assertNotNull(response);
+        assertEquals(Cliente.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(CPF, response.getCpf());
+        assertEquals(NOME, response.getNome());
+        assertEquals(IDADE, response.getIdade());
     }
 
     @Test
-    void findByCpf() {
+    void whenSaveClienteThenReturnADataIntegrityViolationException(){
+        when(repository.findByCpf(Mockito.anyString())).thenReturn(optCliente);
+
+        try {
+            service.save(clienteDTO);
+        } catch (Exception ex) {
+            assertEquals(DataIntegrityViolationException.class, ex.getClass());
+            assertEquals("CPF já está em uso", ex.getMessage());
+        }
+    }
+
+    @Test
+    void whenFindByCpfWithSuccessThenReturnAClienteInstance() {
+        when(repository.findByCpf(Mockito.anyString())).thenReturn(optCliente);
+
+        Cliente response = service.findByCpf(CPF);
+
+        assertNotNull(response);
+        assertEquals(Cliente.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(CPF, response.getCpf());
+        assertEquals(NOME, response.getNome());
+        assertEquals(IDADE, response.getIdade());
+    }
+
+    @Test
+    void whenFindByCpfNotSuccessThenReturnAnObjectNotFoundException() {
+        when(repository.findByCpf(Mockito.anyString())).thenThrow(new ObjectNotFoundException("CPF não encontrado!"));
+
+        try {
+            service.findByCpf(CPF);
+        } catch (Exception ex) {
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertEquals("CPF não encontrado!", ex.getMessage());
+        }
     }
 
     private void startCliente() {
@@ -87,6 +132,4 @@ class ClienteServiceImplTest {
         clienteDTO = new ClienteDTO(cliente);
         optCliente = Optional.of(new Cliente(ID, CPF, NOME, IDADE));
     }
-
-
 }
