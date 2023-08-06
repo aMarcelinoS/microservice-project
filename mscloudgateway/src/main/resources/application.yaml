@@ -1,0 +1,26 @@
+# Define o nome da aplicação e habilita a descoberta de serviços do gateway, que permite ele encontrar e se comunicar automaticamente com outros serviços registrados no Eureka.
+# Define a porta que o aplicativo de gateway será executado.
+# Configurações do cliente eureka
+    # Habilita o cliente Eureka a buscar informaçãoes do registro de serviços
+    # Permite o cliente eureka se registrar automaticamente o próprio serviço no servidor Eureka
+    # Localização do servidor onde outros serviços Eureka podem ser registrados e consultados
+
+spring:
+  application:
+    name: mscloudgateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    fetch-regitry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
