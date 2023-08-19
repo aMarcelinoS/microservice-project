@@ -2,7 +2,7 @@ package com.github.alemarcelinos.msclientes.application;
 
 import com.github.alemarcelinos.msclientes.application.dto.ClienteDTO;
 import com.github.alemarcelinos.msclientes.application.impl.ClienteServiceImpl;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +13,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/clientes")
+@Slf4j
 public class ClienteController {
 
     @Autowired
@@ -22,7 +23,8 @@ public class ClienteController {
     private ModelMapper mapper;
 
     @GetMapping
-    public String status(){
+    public String status() {
+        log.info("Obtendo o status do microsservico de clientes");
         return "OK";
     }
 
@@ -32,7 +34,7 @@ public class ClienteController {
     }
 
     @PostMapping
-    public ResponseEntity<ClienteDTO> saveClient(@RequestBody ClienteDTO obj){
+    public ResponseEntity<ClienteDTO> saveClient(@RequestBody ClienteDTO obj) {
         URI headerLocation = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .query("cpf={cpf}")
@@ -42,7 +44,7 @@ public class ClienteController {
     }
 
     @GetMapping(params = "cpf")
-    public ResponseEntity<ClienteDTO> findByCpf(@RequestParam("cpf") String cpf){
+    public ResponseEntity<ClienteDTO> findByCpf(@RequestParam("cpf") String cpf) {
         return ResponseEntity.ok().body(mapper.map(service.findByCpf(cpf), ClienteDTO.class));
     }
 }
