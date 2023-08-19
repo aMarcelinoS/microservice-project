@@ -6,18 +6,20 @@ import com.github.alemarcelinos.msclientes.application.impl.exceptions.DataInteg
 import com.github.alemarcelinos.msclientes.application.impl.exceptions.ObjectNotFoundException;
 import com.github.alemarcelinos.msclientes.domain.Cliente;
 import com.github.alemarcelinos.msclientes.infra.repository.ClienteRepository;
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class ClienteServiceImpl implements ClienteService {
 
-    private ModelMapper mapper;
+    @Autowired
     private ClienteRepository repository;
+
+    @Autowired
+    private ModelMapper mapper;
 
     @Override
     public Cliente findById(Long id) {

@@ -4,6 +4,7 @@ import com.github.alemarcelinos.msclientes.application.dto.ClienteDTO;
 import com.github.alemarcelinos.msclientes.application.impl.ClienteServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -11,11 +12,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = "clientes")
-@RequiredArgsConstructor
+@RequestMapping(value = "/clientes")
 public class ClienteController {
 
+    @Autowired
     private ClienteServiceImpl service;
+
+    @Autowired
     private ModelMapper mapper;
 
     @GetMapping
