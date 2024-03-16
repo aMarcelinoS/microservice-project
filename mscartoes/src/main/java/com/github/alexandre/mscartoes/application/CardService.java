@@ -1,5 +1,6 @@
 package com.github.alexandre.mscartoes.application;
 
+import com.github.alexandre.mscartoes.application.dto.CardDto;
 import com.github.alexandre.mscartoes.domain.Card;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,7 +11,7 @@ import java.util.Optional;
 public interface CardService {
 
     @Transactional
-    Card save(Card card);
+    Card save(CardDto cardDto);
     Card findById(Long id);
-    Optional<List<Card>> ListCardsForIncome(Long income);
+    Optional<List<Card>> getListCardsForIncome(Long income);
 }

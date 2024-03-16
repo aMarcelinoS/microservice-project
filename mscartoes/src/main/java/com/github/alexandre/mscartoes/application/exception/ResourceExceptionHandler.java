@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
-public class ResourceExeptionHandler {
+public class ResourceExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<StandardError> DataIntegrityException(DataIntegrityViolationException ex, HttpServletRequest request){

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-public class StandarError {
+public class StandardError {
 
     private LocalDateTime timeStamp;
     private Integer status;
