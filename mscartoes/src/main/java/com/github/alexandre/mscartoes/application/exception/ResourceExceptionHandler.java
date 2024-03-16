@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 
 @ControllerAdvice
-public class ResourceExeptionHandler {
+public class ResourceExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public ResponseEntity<StandarError> DataIntegrityException(DataIntegrityViolationException ex, HttpServletRequest request){
-        StandarError standarError = new StandarError(
+    public ResponseEntity<StandardError> DataIntegrityException(DataIntegrityViolationException ex, HttpServletRequest request){
+        StandardError standardError = new StandardError(
                 LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST.value(),
                 ex.getMessage(),
                 request.getRequestURI());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standarError);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
     }
 
 
